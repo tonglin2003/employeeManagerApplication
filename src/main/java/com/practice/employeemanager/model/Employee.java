@@ -1,26 +1,28 @@
 package com.practice.employeemanager.model;
 
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+
 import jakarta.persistence.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 
 // make sure this will be mapped into a database with your choice
-@Entity
+@Document(collection = "employee")
 public class Employee implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false, updatable = false)
-    private Long id;
+    private ObjectId id;
     private String name;
     private String email;
     private String jobTitle;
     private String phone;
     private String imgUrl;
 
-    @Column(nullable = false, updatable = false)
     private String employeeCode;
 
     public Employee(String name, String email, String jobTitle, String phone, String imgUrl, String employeeCode){
+        super();
         this.name = name;
         this.email = email;
         this.jobTitle = jobTitle;
@@ -34,9 +36,8 @@ public class Employee implements Serializable {
     }
 
 
-    public Long getId(){return id;}
+    public ObjectId getId(){return id;}
 
-    public void setId(Long id){this.id = id;}
 
     public String getName() {
         return name;
