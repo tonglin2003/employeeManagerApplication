@@ -2,11 +2,13 @@ package com.practice.employeemanager;
 
 import com.practice.employeemanager.model.Employee;
 import com.practice.repository.EmployeeRepo;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 
@@ -15,6 +17,7 @@ import java.util.List;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @EnableMongoRepositories(basePackages = "com.practice.repository")
+@ComponentScan(basePackages = "com.practice")
 public class EmployeemanagerApplication implements CommandLineRunner {
 
 	@Autowired
@@ -27,25 +30,25 @@ public class EmployeemanagerApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception{
 		System.out.println("Spring Boot application has started!");
-		System.out.println("Spring Boot application has started!");
-
-		System.out.println("\n-----CREATE EMPLOYEES-----\n");
-		 createEmployees();
-
-		System.out.println("\n-----GET EMPLOYEE BY NAME-----\n");
-//		getEmployeeByName("John Doe");
-		getAllEmployee();
-
-		System.out.println("\n-----GET EMPLOYEES BY JOB TITLE-----\n");
-		getEmployeesByJobTitle("Manager");
-
-		System.out.println("\n-----UPDATE JOB TITLE-----\n");
-		updateJobTitle("Manager", "Alice Smith");
-
-		System.out.println("\n-----DELETE EMPLOYEE-----\n");
-		deleteEmployee("EMP003");
-
-		System.out.println("\n-----THANK YOU-----");
+//		System.out.println("Spring Boot application has started!");
+//
+//		System.out.println("\n-----CREATE EMPLOYEES-----\n");
+//		 // createEmployees();
+//
+//		System.out.println("\n-----GET EMPLOYEE BY NAME-----\n");
+////		getEmployeeByName("John Doe");
+//		getAllEmployee();
+//
+//		System.out.println("\n-----GET EMPLOYEES BY JOB TITLE-----\n");
+//		getEmployeesByJobTitle("Manager");
+//
+//		System.out.println("\n-----UPDATE JOB TITLE-----\n");
+//		updateJobTitle("Manager", "Alice Smith");
+//
+//		System.out.println("\n-----DELETE EMPLOYEE-----\n");
+//		//deleteEmployee("EMP003");
+//
+//		System.out.println("\n-----THANK YOU-----");
 	}
 
 
@@ -110,7 +113,7 @@ public class EmployeemanagerApplication implements CommandLineRunner {
 
 		Employee deleteEm = employeeRepo.findEmployeeByEmployeeCode(employeeCode);
 
-		String idNum = deleteEm.getId().toString();
+		ObjectId idNum = deleteEm.getId();
 		employeeRepo.deleteById(idNum);
 	}
 
